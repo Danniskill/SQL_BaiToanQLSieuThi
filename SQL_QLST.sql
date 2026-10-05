@@ -53,7 +53,7 @@ CREATE TABLE NHAN_VIEN (
     HoDem      NVARCHAR(50)  NOT NULL,
     Ten        NVARCHAR(30)  NOT NULL,
     GioiTinh   NVARCHAR(10)  NULL,
-    NgaySinh   DATE          NULL,        -- bổ sung để tính Tuoi (ER chưa có)
+    NgaySinh   DATE          NULL,
     ChucVu     NVARCHAR(50)  NULL,
     LuongCB    DECIMAL(15,2) NULL CHECK (LuongCB >= 0),
     NgayVaoLam DATE          NULL
@@ -98,7 +98,7 @@ CREATE TABLE CHI_TIET_NHAP (
     MaSP          VARCHAR(10)   NOT NULL,
     SoLuongNhap   INT           NOT NULL CHECK (SoLuongNhap > 0),
     DonGiaNhap    DECIMAL(15,2) NOT NULL CHECK (DonGiaNhap >= 0),
-    ThanhTienNhap AS (SoLuongNhap * DonGiaNhap) PERSISTED,   -- suy diễn
+    ThanhTienNhap AS (SoLuongNhap * DonGiaNhap) PERSISTED,
     PRIMARY KEY (MaPN, MaSP),
     FOREIGN KEY (MaPN) REFERENCES PHIEU_NHAP(MaPN) ON DELETE CASCADE,
     FOREIGN KEY (MaSP) REFERENCES SAN_PHAM(MaSP)
@@ -120,8 +120,8 @@ CREATE TABLE CHI_TIET_HD (
     MaSP      VARCHAR(10)   NOT NULL,
     SoLuong   INT           NOT NULL CHECK (SoLuong > 0),
     DonGiaBan DECIMAL(15,2) NOT NULL CHECK (DonGiaBan >= 0),
-    GiamGia   DECIMAL(15,2) NOT NULL DEFAULT 0 CHECK (GiamGia >= 0),   -- số tiền giảm
-    ThanhTien AS (SoLuong * DonGiaBan - GiamGia) PERSISTED,            -- suy diễn
+    GiamGia   DECIMAL(15,2) NOT NULL DEFAULT 0 CHECK (GiamGia >= 0),
+    ThanhTien AS (SoLuong * DonGiaBan - GiamGia) PERSISTED,
     PRIMARY KEY (MaHD, MaSP),
     FOREIGN KEY (MaHD) REFERENCES HOA_DON(MaHD) ON DELETE CASCADE,
     FOREIGN KEY (MaSP) REFERENCES SAN_PHAM(MaSP)
